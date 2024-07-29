@@ -1,4 +1,4 @@
-exercise6.sqlcreate table cd.facilities (facid integer,
+create table cd.facilities (facid integer,
                             name varchar(100),
                             membercost numeric,
                             guestcost numeric,
