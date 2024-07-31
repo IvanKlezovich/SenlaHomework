@@ -1,9 +1,12 @@
-create table cd.facilities (facid integer,
-                            name varchar(100),
-                            membercost numeric,
-                            guestcost numeric,
-                            initialoutlay numeric,
-                            monthlymaintenance numeric);
+create table cd.facilities
+(
+    facid              integer,
+    name               varchar(100),
+    membercost         numeric,
+    guestcost          numeric,
+    initialoutlay      numeric,
+    monthlymaintenance numeric
+);
 
 insert into cd.facilities (facid, name, membercost, guestcost, initialoutlay, monthlymaintenance)
 values (0, 'Tennis Court 1', 5, 25, 10000, 200),
@@ -16,4 +19,5 @@ values (0, 'Tennis Court 1', 5, 25, 10000, 200),
        (7, 'Snooker Table', 0, 5, 450, 15),
        (8, 'Pool Table', 0, 5, 400, 15);
 
-select count(*) from cd.facilities;
+select count(*)
+from cd.facilities;
