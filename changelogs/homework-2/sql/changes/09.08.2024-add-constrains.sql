@@ -1,0 +1,20 @@
+
+-- ALTER TABLE books
+--     ADD CONSTRAINT fk_books_authors
+--         FOREIGN KEY (author_id) REFERENCES authors(ID);
+--
+-- ALTER TABLE books
+--     ADD CONSTRAINT fk_books_genre
+--         FOREIGN KEY (genre_id) REFERENCES genre(ID);
+--
+-- ALTER TABLE books
+--     ADD CONSTRAINT fk_books_publisher
+--         FOREIGN KEY (publisher_id) REFERENCES publisher(ID);
+--
+-- ALTER TABLE books
+--     ADD CONSTRAINT fk_books_suppliers
+--         FOREIGN KEY (suppliers_id) REFERENCES suppliers(ID);
+--
+-- ALTER TABLE orders
+--     ADD CONSTRAINT fk_orders_buyers
+--         FOREIGN KEY (Customer_ID) REFERENCES buyers(ID);
