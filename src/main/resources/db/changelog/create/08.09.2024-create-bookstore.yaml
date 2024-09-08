@@ -1,0 +1,26 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_table_bookstore
+      author: Klezovich Ivan
+      changes:
+        - createTable:
+            tableName: bookstores
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: delivery_date
+                  type: BIGINT
+              - column:
+                  name: capacity
+                  type: INT

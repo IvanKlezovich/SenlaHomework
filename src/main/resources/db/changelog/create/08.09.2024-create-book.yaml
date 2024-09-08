@@ -1,0 +1,36 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_table_book
+      author: Klezovich Ivan
+      changes:
+      - createTable:
+          tableName: books
+          columns:
+            - column:
+                name: id
+                type: BIGINT
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: title
+                type: VARCHAR(255)
+                constraints:
+                  nullable: false
+            - column:
+                name: author_id
+                type: BIGINT
+                constraints:
+                  nullable: false
+                  foreignKeyName: fk_books_author
+                  referencedTableName: authors
+                  referencedColumnNames: id
+            - column:
+                name: genre_id
+                type: BIGINT
+                constraints:
+                  nullable: false
+                  foreignKeyName: fk_books_genre
+                  referencedTableName: genres
+                  referencedColumnNames: id

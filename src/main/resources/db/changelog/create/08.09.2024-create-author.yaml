@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_table_author
+      author: Klezovich Ivan
+      changes:
+        - createTable:
+            tableName: authors
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: full_name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: biography
+                  type: TEXT
+              - column:
+                  name: birth_date
+                  type: BIGINT
+              - column:
+                  name: country
+                  type: VARCHAR(255)

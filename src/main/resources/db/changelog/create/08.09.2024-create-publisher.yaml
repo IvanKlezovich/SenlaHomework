@@ -1,0 +1,23 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_table_book
+      author: Klezovich Ivan
+      changes:
+        - createTable:
+            tableName: publishers
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: address
+                  type: VARCHAR(255)

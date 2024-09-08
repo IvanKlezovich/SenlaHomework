@@ -1,0 +1,35 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_table_order-items
+      author: Klezovich Ivan
+      changes:
+        - createTable:
+            tableName: order_items
+            columns:
+              - column:
+                  name: order_item_id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+        - createTable:
+            tableName: order_items_book_editions
+            columns:
+              - column:
+                  name: order_item_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_items_book_editions_order_item
+                    referencedTableName: order_items
+                    referencedColumnNames: order_item_id
+              - column:
+                  name: book_edition_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_order_items_book_editions_book_edition
+                    referencedTableName: book_editions
+                    referencedColumnNames: id

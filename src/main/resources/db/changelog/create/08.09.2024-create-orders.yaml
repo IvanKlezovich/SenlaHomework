@@ -1,0 +1,37 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_table_orders
+      author: Klezovich Ivan
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: user_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+              - column:
+                  name: order_item_id
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_orders_order_items
+                    referencedTableName: order_items
+                    referencedColumnNames: order_item_id
+              - column:
+                  name: total_price
+                  type: BIGINT
+              - column:
+                  name: date
+                  type: BIGINT
+              - column:
+                  name: status_id
+                  type: varchar
