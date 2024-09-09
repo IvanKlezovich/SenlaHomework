@@ -1,3 +1,11 @@
+database:
+  url: jdbc:postgresql://localhost:5432/books_shops_db
+  username: postgres
+  password: postgres
+  driver: org.postgresql.Driver
+  connection-pool:
+    initial-size: 10
+    max-size: 30
 spring:
   application:
     name: demo

@@ -1,9 +1,7 @@
 package com.example.demo.configs;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.*;
 
 import java.util.Random;
 
@@ -16,7 +14,8 @@ import java.util.Random;
  */
 @Configuration
 @ComponentScan("com.example.demo")
-//@EnableAspectJAutoProxy
+@EnableAspectJAutoProxy
+@Import(DatabaseConfig.class)
 public class SpringConfiguration {
 
     /**

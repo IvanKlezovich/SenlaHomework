@@ -1,0 +1,20 @@
+databaseChangeLog:
+  - changeSet:
+      id: add_table_genre
+      author: Klezovich Ivan
+      changes:
+        - createTable:
+            tableName: genres
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name_genre
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false

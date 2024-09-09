@@ -1,0 +1,25 @@
+databaseChangeLog:
+  - changeSet:
+      id: 0
+      author: admin
+      changes:
+  - include:
+      - file: db/changelog/create/08.09.2024-create-author.yaml
+  - include:
+      - file: db/changelog/create/08.09.2024-create-genre.yaml
+  - include:
+      - file: db/changelog/create/08.09.2024-create-book.yaml
+  - include:
+      - file: db/changelog/create/08.09.2024-create-book-edition.yaml
+  - include:
+      - file: db/changelog/create/08.09.2024-create-bookstore.yaml
+  - include:
+      - file: db/changelog/create/08.09.2024-create-order-items.yaml
+  - include:
+      - file: db/changelog/create/08.09.2024-create-orders.yaml
+  - include:
+      - file: db/changelog/create/08.09.2024-create-publisher.yaml
+  - includeAll:
+      - path: db/changelog/update
+  - includeAll:
+      - path: db/changelog/insert
