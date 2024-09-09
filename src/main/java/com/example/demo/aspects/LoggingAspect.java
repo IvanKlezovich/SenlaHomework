@@ -42,7 +42,7 @@ public class LoggingAspect {
     /**
      * Pointcut that matches all Spring beans annotated with {@code @Repository}.
      */
-    @Pointcut("within(@org.springframework.stereotype.Repository *)")
+    @Pointcut("@annotation(org.springframework.stereotype.Repository)")
     public void repository() {}
 
     /**

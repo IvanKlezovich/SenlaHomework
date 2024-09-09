@@ -5,5 +5,5 @@ public interface BaseRepository {
     String SELECT_LIMIT_1 = "select * from %s where %s = '%s' limit 1";
     String INSERT = "insert into %s (%s) values(%s)";
     String DELETE = "delete from %s where id = %d";
-    String UPDATE = "update %s set %s where id = %d";
+
 }

@@ -6,6 +6,7 @@ import liquibase.integration.spring.SpringLiquibase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -19,6 +20,7 @@ import java.util.logging.Logger;
 @Configuration
 @EnableTransactionManagement
 @RequiredArgsConstructor
+@PropertySource("classpath:database.properties")
 public class DatabaseConfig {
 
     /**
@@ -28,16 +30,16 @@ public class DatabaseConfig {
      * @return A DataSource instance, or null if an exception occurs during configuration.
      */
     @Bean
-    DataSource dataSource(PostrgeConnectionPool postrgeConnectionPool) {
+    DataSource dataSource(ConnectionPool connectionPool) {
         return new DataSource() {
             @Override
             public Connection getConnection() throws SQLException {
-                return postrgeConnectionPool.getConnection();
+                return connectionPool.getConnection();
             }
 
             @Override
             public Connection getConnection(String username, String password) throws SQLException {
-                return postrgeConnectionPool.getConnection();
+                return connectionPool.getConnection();
             }
 
             @Override

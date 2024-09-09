@@ -10,6 +10,9 @@ import lombok.SneakyThrows;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -112,15 +115,31 @@ public class DemoApplication {
         logger.log(Level.INFO, "-----------------------------END Publisher--------------------------------------");
     }
 
+    @SneakyThrows
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
 
-        testsForAuthor(context);
+        //testsForAuthor(context);
 
-        testsForGenre(context);
+        //testsForGenre(context);
 
-        testsForBooks(context);
+        ExecutorService executorService = Executors.newFixedThreadPool(5);
 
-        testsForPublishers(context);
+        for (int i = 0; i < 5; i++) {
+            executorService.submit(() -> {
+                try {
+                    testsForBooks(context);
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Ошибка в потоке", e);
+                }
+            });
+        }
+
+        executorService.shutdown();
+        executorService.awaitTermination(1, TimeUnit.MINUTES);
+
+        //testsForBooks(context);
+
+        //testsForPublishers(context);
     }
 }

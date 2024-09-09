@@ -17,28 +17,28 @@ public class AuthorRepositoryImpl implements AuthorRepository {
 
     private final PostrgeConnectionPool connectionPool;
 
-    private static final String AUTHOR_TABLE_NAME = "authors";
-
     public void save(Author author) {
-        String sql = INSERT.formatted(AUTHOR_TABLE_NAME, "full_name, biography, birth_date, country", "'" + author.getFullName()
-                + "','" + author.getBiography() + "'," + author.getBirthDate() + ", '" + author.getCountry() + "'");
-
-        try (Connection connection = connectionPool.getConnection();
-             Statement statement = connection.createStatement();) {
+        String sql = INSERT_AUTHOR.formatted( author.getFullName(),
+                author.getBiography(), author.getBirthDate(), author.getCountry());
+        try{
+            Connection connection = connectionPool.getConnection();
+            Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
+            connectionPool.releaseConnection(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
 
     public void delete(Author author) {
         String sql = DELETE.formatted(AUTHOR_TABLE_NAME, author.getId());
-        try (Connection connection = connectionPool.getConnection();
-             Statement statement = connection.createStatement()) {
+        try {
+            Connection connection = connectionPool.getConnection();
+             Statement statement = connection.createStatement();
             statement.executeUpdate(sql);
+            connectionPool.releaseConnection(connection);
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 
@@ -47,8 +47,9 @@ public class AuthorRepositoryImpl implements AuthorRepository {
 
         int lastID = 0, size = 10;
 
-        try (Connection connection = connectionPool.getConnection();
-             Statement statement = connection.createStatement()) {
+        try {
+            Connection connection = connectionPool.getConnection();
+            Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery(SELECT_ALL.formatted(AUTHOR_TABLE_NAME, lastID, size));
 
             while (rs.next()) {
@@ -60,46 +61,60 @@ public class AuthorRepositoryImpl implements AuthorRepository {
                 author.setFullName(rs.getString("full_name"));
                 authorList.add(author);
             }
-
+            System.out.println(connectionPool.getSize());
+            connectionPool.releaseConnection(connection);
+            System.out.println(connectionPool.getSize());
             return authorList;
         } catch (SQLException e) {
-            e.printStackTrace();
             throw new RuntimeException(e);
         }
     }
 
     public Optional<Author> findByName(String name) {
         String sql = SELECT_LIMIT_1.formatted(AUTHOR_TABLE_NAME, "full_name", name);
-        try (Connection connection = connectionPool.getConnection();
-             Statement statement = connection.createStatement()) {
-
-            ResultSet rs = statement.executeQuery(sql);
-            Author author = new Author();
-
-            while (rs.next()) {
-                author.setId(rs.getLong("id"));
-                author.setBiography(rs.getString("biography"));
-                author.setCountry(rs.getString("country"));
-                author.setBirthDate(rs.getLong("birth_date"));
-                author.setFullName(rs.getString("full_name"));
-            }
-
-            return Optional.ofNullable(author);
+        try {
+            Connection connection = connectionPool.getConnection();
+            Statement statement = connection.createStatement();
+            return executeQuery(statement, sql);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
     public void update(Author newAuthor, Author oldAuthor) {
-        String sql = UPDATE_QUERY.formatted(AUTHOR_TABLE_NAME, newAuthor.getFullName(),
-                newAuthor.getBiography(), newAuthor.getBirthDate(), newAuthor.getCountry());
+        String sql = UPDATE_QUERY.formatted(newAuthor.getFullName(),
+                newAuthor.getBiography(), newAuthor.getBirthDate(), newAuthor.getCountry(), oldAuthor.getId());
+        try {
+            Connection connection = connectionPool.getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate(sql);
+            connectionPool.releaseConnection(connection);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Optional<Author> findById(Long id) {
+        String sql = SELECT_LIMIT_1.formatted(AUTHOR_TABLE_NAME, "id", id);
         try (Connection connection = connectionPool.getConnection();
              Statement statement = connection.createStatement()) {
-
-            ResultSet rs = statement.getResultSet();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return executeQuery(statement, sql);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    private Optional<Author> executeQuery(Statement statement, String sql) throws SQLException {
+        ResultSet rs = statement.executeQuery(sql);
+        Author author = new Author();
+
+        while (rs.next()) {
+            author.setId(rs.getLong("id"));
+            author.setBiography(rs.getString("biography"));
+            author.setCountry(rs.getString("country"));
+            author.setBirthDate(rs.getLong("birth_date"));
+            author.setFullName(rs.getString("full_name"));
+        }
+        return Optional.of(author);
     }
 }

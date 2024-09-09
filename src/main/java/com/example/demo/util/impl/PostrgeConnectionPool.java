@@ -1,8 +1,8 @@
 package com.example.demo.util.impl;
 
 import com.example.demo.util.ConnectionPool;
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
@@ -14,22 +14,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@PropertySource("classpath:application.yaml")
+
 public class PostrgeConnectionPool implements ConnectionPool {
 
-    //@Value("${database.url}")
-    private String url = "jdbc:postgresql://localhost:5432/books_shops_db";
-    //@Value("${database.username}")
-    private String username = "postgres";
-    //@Value("${database.password}")
-    private String password = "postgres";
-    //@Value("${database.connection-pool.initial-size}")
-    private int initialPoolSize = 10;
-    //@Value("${database.max-pool-size}")
-    private int maxPoolSize = 30;
+    @Value("${database.url}")
+    private String url;
+    @Value("${database.username}")
+    private String username;
+    @Value("${database.password}")
+    private String password;
+    @Value("${database.connection-pool.initial-size}")
+    private int initialPoolSize;
+    @Value("${database.connection-pool.max-pool-size}")
+    private int maxPoolSize;
 
     private final List<Connection> pool;
 
+    @Getter
     private final List<Connection> usedConnections = new ArrayList<>();
 
     public PostrgeConnectionPool() {
@@ -46,7 +47,7 @@ public class PostrgeConnectionPool implements ConnectionPool {
 
     public synchronized Connection getConnection() throws SQLException {
         if (pool.isEmpty()) {
-            if (usedConnections.size() < maxPoolSize) {
+            if (pool.size() < maxPoolSize) {
                 pool.add(createConnection());
             }else{
                 throw new RuntimeException("Maximum pool size reached, no available connections!");
@@ -67,18 +68,16 @@ public class PostrgeConnectionPool implements ConnectionPool {
     public void shutdown() throws SQLException {
         usedConnections.forEach(this::releaseConnection);
         for (Connection c : pool) {
-            System.out.println("1");
             c.close();
         }
         pool.clear();
     }
 
     public int getSize() {
-        return pool.size() + usedConnections.size();
+        return pool.size();
     }
 
     private Connection createConnection() throws SQLException {
-        System.out.println("1" + url);
         return DriverManager.getConnection(url, username, password);
     }
 }
