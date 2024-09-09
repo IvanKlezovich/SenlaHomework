@@ -12,13 +12,23 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.logging.Logger;
 
+/**
+ * Aspect for handling transactions in methods annotated with {@code @Transaction}.
+ * This aspect intercepts method calls, starts a transaction, and ensures that the transaction
+ * is committed or rolled back based on the method's execution.
+ */
 @Aspect
 @Component
 @RequiredArgsConstructor
 public class TransactionAspect {
-
+    /**
+     * The transaction manager used to manage transactions.
+     */
     private final PlatformTransactionManager transactionManager;
 
+    /**
+     * Logger for logging transaction-related messages.
+     */
     private final Logger logger = Logger.getLogger(TransactionAspect.class.getName());
 
     /**
@@ -30,6 +40,8 @@ public class TransactionAspect {
 
     /**
      * Advice covering the {@code transaction} pointcut.
+     * This advice intercepts the method execution, starts a transaction, and ensures
+     * that the transaction is committed or rolled back based on the method's execution.
      *
      * @param joinPoint join point for advice
      * @return result of the method execution
@@ -40,6 +52,16 @@ public class TransactionAspect {
         return transaction(joinPoint);
     }
 
+
+    /**
+     * Handles the transaction logic for the intercepted method.
+     * Starts a transaction, executes the method, and commits or rolls back the transaction
+     * based on the method's execution.
+     *
+     * @param joinPoint join point for advice
+     * @return result of the method execution
+     * @throws Throwable if the method execution throws an exception
+     */
     private Object transaction(ProceedingJoinPoint joinPoint) throws Throwable {
 
         TransactionStatus transactionStatus = transactionManager.getTransaction(new DefaultTransactionDefinition());

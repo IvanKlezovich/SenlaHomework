@@ -79,6 +79,12 @@ public class DatabaseConfig {
         };
     }
 
+    /**
+     * Creates and configures SpringLiquibase for managing database changes.
+     * Uses changelog-master.yaml file to define changes.
+     *
+     * @return the configured SpringLiquibase
+     */
     @Bean
     public SpringLiquibase liquibase(){
         SpringLiquibase liquibase = new SpringLiquibase();
@@ -87,6 +93,13 @@ public class DatabaseConfig {
         return liquibase;
     }
 
+    /**
+     * Creates and configures the PlatformTransactionManager for managing transactions.
+     * Uses DataSourceTransactionManager.
+     *
+     * @param dataSource the DataSource used for managing transactions
+     * @return the configured PlatformTransactionManager
+     */
     @Bean
     public PlatformTransactionManager transactionManager(DataSource dataSource) {
         return new DataSourceTransactionManager(dataSource);
