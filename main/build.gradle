@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'org.liquibase.gradle' version '2.1.1'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+
+    implementation project(':di')
+    implementation 'org.liquibase:liquibase-core:4.6.2'
+    implementation 'org.postgresql:postgresql:42.2.23'
+
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+}
+
+liquibase {
+    activities {
+        main {
+            changeLogFile 'src/main/resources/liquibase/changelog-master.yaml'
+            url 'jdbc:postgresql://localhost:5432/book'
+            username 'postres'
+            password 'postres'
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
