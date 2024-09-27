@@ -37,6 +37,7 @@ public class AuthorServiceImpl implements AuthorService {
     public List<AuthorDto> getAllAuthor() {
         List<AuthorDto> authorDtoList = new ArrayList<>();
 
+
         authorRepository.findAll().forEach(author -> authorDtoList.add(AuthorDto.builder()
                 .fullName(author.getFullName())
                 .birthDate(author.getBirthDate())
