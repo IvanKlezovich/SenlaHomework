@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface BookEditionRepository {
     void save(BookEdition bookEdition);
     void delete(BookEdition bookEdition);
-    List<BookEdition> findAll(); // TODO method must be Optional
+    List<BookEdition> findAll();
     Optional<BookEdition> findByBookTitle(String name);
     void update(BookEdition newBookEdition, BookEdition oldBookEdition);
 }

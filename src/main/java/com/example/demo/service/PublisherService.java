@@ -1,14 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.dtos.PublisherDto;
-import com.example.demo.dtos.ResponceDto;
+import com.example.demo.dtos.ResponseDto;
 import com.example.demo.dtos.UpdateDto;
 
 import java.util.List;
 
 public interface PublisherService {
     List<PublisherDto> getAllPublishers();
-    ResponceDto delete(PublisherDto publisherDto);
-    ResponceDto save(PublisherDto publisherDto);
-    ResponceDto update(UpdateDto<PublisherDto> publisherDtoDtoUpdateDto);
+    ResponseDto delete(PublisherDto publisherDto);
+    ResponseDto save(PublisherDto publisherDto);
+    ResponseDto update(UpdateDto<PublisherDto> publisherDtoDtoUpdateDto);
 }

@@ -1,18 +1,18 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.annotations.Transaction;
 import com.example.demo.dtos.AuthorDto;
-import com.example.demo.dtos.ResponceDto;
+import com.example.demo.dtos.ResponseDto;
 import com.example.demo.dtos.UpdateDto;
 import com.example.demo.entities.Author;
 import com.example.demo.repositories.AuthorRepository;
 import com.example.demo.service.AuthorService;
+import com.example.demo.util.AuthorMapper;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * Service implementation for managing {@link AuthorDto} entities.
@@ -26,26 +26,17 @@ import java.util.Random;
 public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
-    private final Random random;
+    private final AuthorMapper authorMapper;
 
     /**
      * Retrieves all authors.
      *
      * @return a list of {@link AuthorDto} containing all authors.
      */
-    @Transaction
     public List<AuthorDto> getAllAuthor() {
-        List<AuthorDto> authorDtoList = new ArrayList<>();
-
-
-        authorRepository.findAll().forEach(author -> authorDtoList.add(AuthorDto.builder()
-                .fullName(author.getFullName())
-                .birthDate(author.getBirthDate())
-                .biography(author.getBiography())
-                .country(author.getCountry())
-                .build()));
-
-        return authorDtoList;
+        List<AuthorDto> authorDtos = new ArrayList<>();
+        authorRepository.findAll().forEach(item -> authorDtos.add(authorMapper.toAuthorDto(item)));
+        return authorDtos;
     }
 
     /**
@@ -54,12 +45,15 @@ public class AuthorServiceImpl implements AuthorService {
      * @param authorDto the author data transfer object containing the author details to be deleted.
      * @return a {@link ResponseDto} indicating the result of the operation.
      */
-    @Transaction
-    public ResponceDto delete(AuthorDto authorDto) {
-        Author author = authorRepository.findByName(authorDto.fullName()).orElse(null); //TODO replace with orElseThrow
-        authorRepository.delete(author);
+    @Transactional
+    public ResponseDto delete(AuthorDto authorDto) {
+        Author author = authorRepository.findAuthorByFullName(
+                authorDto.fullName()).orElseThrow();
 
-        return ResponceDto.builder()
+        if (Boolean.TRUE.equals(author.getIsAlive())) authorRepository.deleteAuthorById(author.getId());
+        else throw new RuntimeException();
+
+        return ResponseDto.builder()
                 .message("ОК")
                 .build();
     }
@@ -70,14 +64,11 @@ public class AuthorServiceImpl implements AuthorService {
      * @param authorDto the author data transfer object containing the author details to be saved.
      * @return a {@link ResponseDto} indicating the result of the operation.
      */
-    @Transaction
-    public ResponceDto save(AuthorDto authorDto) {
+    public ResponseDto save(AuthorDto authorDto) {
 
-        Author author = new Author(random.nextLong(), authorDto.fullName(),
-                authorDto.biography(), authorDto.birthDate(), authorDto.country());
-        authorRepository.save(author);
+        authorRepository.save(authorMapper.toAuthor(authorDto));
 
-        return ResponceDto.builder()
+        return ResponseDto.builder()
                 .message("ОК")
                 .build();
     }
@@ -88,16 +79,17 @@ public class AuthorServiceImpl implements AuthorService {
      * @param authorDto the update data transfer object containing the old and new author details.
      * @return a {@link ResponseDto} indicating the result of the operation.
      */
-    @Transaction
-    public ResponceDto update(UpdateDto<AuthorDto> authorDto) {
+    public ResponseDto update(UpdateDto<AuthorDto> authorDto) {
+
+        Author author = authorRepository.findAuthorByFullName(authorDto.getOldValue().fullName())
+                .orElseThrow(null);
 
         AuthorDto newAuthor = authorDto.getNewValue();
-        Author author = authorRepository.findByName(authorDto.getOldValue().fullName()).orElse(null);
-        Author updatedAuthor = new Author(author.getId(), newAuthor.fullName(),
-                newAuthor.biography(), newAuthor.birthDate(), newAuthor.country());
 
-        authorRepository.update(updatedAuthor, author);
-        return ResponceDto.builder()
+        authorRepository.updateAuthorById(author.getId(), newAuthor.fullName(),
+                newAuthor.birthDate(), newAuthor.country());
+
+        return ResponseDto.builder()
                 .message("ОК")
                 .build();
     }

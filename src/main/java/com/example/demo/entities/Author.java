@@ -1,29 +1,52 @@
 package com.example.demo.entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.*;
+import org.hibernate.proxy.HibernateProxy;
+
 import java.util.Objects;
 
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class Author {
+
+    @Id
+    @Column(name = "author_id")
     private Long id;
+
+    @Column(name = "full_name")
     private String fullName;
+
+    @Column(name = "biography")
     private String biography;
+
+    @Column(name = "birth_date")
     private Long birthDate;
+
+    @Column(name = "country")
     private String country;
 
+    @Column(name = "status")
+    private Boolean isAlive;
+
     @Override
-    public boolean equals(Object o) {
+    public final boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (o == null) return false;
+        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
+        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
+        if (thisEffectiveClass != oEffectiveClass) return false;
         Author author = (Author) o;
-        return Objects.equals(id, author.id) && Objects.equals(fullName, author.fullName) && Objects.equals(biography, author.biography);
+        return id != null && Objects.equals(id, author.id);
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(id, fullName, biography);
+    public final int hashCode() {
+        return this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass().hashCode() : getClass().hashCode();
     }
 }

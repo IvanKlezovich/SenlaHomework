@@ -14,12 +14,12 @@ public interface AuthorController {
     @GetMapping("/allAuthor")
     ResponseEntity<String> getAuthor() throws JsonProcessingException;
 
-    @PostMapping("/Author")
+    @PostMapping("/author")
     ResponseEntity<HttpStatus> createAuthor(@RequestBody AuthorDto authorDto);
 
-    @PostMapping("/AuthorUpdate")
+    @PostMapping("/authorUpdate")
     ResponseEntity<HttpStatus> updateAuthor(@RequestBody UpdateDto<AuthorDto> authorDtoUpdateDto);
 
-    @PostMapping("/AuthorDelete")
+    @PostMapping("/authorDelete")
     ResponseEntity<HttpStatus> deleteAuthor(@RequestBody AuthorDto authorDto);
 }
