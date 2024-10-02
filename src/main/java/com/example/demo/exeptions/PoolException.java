@@ -1,4 +1,8 @@
 package com.example.demo.exeptions;
 
-public class PoolException {
+import java.sql.SQLException;
+
+public class PoolException extends RuntimeException {
+    private String message;
+    public PoolException() {super(SQLException.class.getName());}
 }

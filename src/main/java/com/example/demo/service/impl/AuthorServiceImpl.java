@@ -1,11 +1,10 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.annotations.Transaction;
 import com.example.demo.dtos.AuthorDto;
 import com.example.demo.dtos.ResponceDto;
 import com.example.demo.dtos.UpdateDto;
 import com.example.demo.entities.Author;
-import com.example.demo.repositories.AuthorRepository;
+import com.example.demo.repositories.impl.AuthorRepositoryImpl;
 import com.example.demo.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +24,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
 
-    private final AuthorRepository authorRepository;
+    private final AuthorRepositoryImpl authorRepository;
     private final Random random;
 
     /**
@@ -33,7 +32,6 @@ public class AuthorServiceImpl implements AuthorService {
      *
      * @return a list of {@link AuthorDto} containing all authors.
      */
-    @Transaction
     public List<AuthorDto> getAllAuthor() {
         List<AuthorDto> authorDtoList = new ArrayList<>();
 
@@ -53,7 +51,6 @@ public class AuthorServiceImpl implements AuthorService {
      * @param authorDto the author data transfer object containing the author details to be deleted.
      * @return a {@link ResponseDto} indicating the result of the operation.
      */
-    @Transaction
     public ResponceDto delete(AuthorDto authorDto) {
         Author author = authorRepository.findByName(authorDto.fullName()).orElse(null); //TODO replace with orElseThrow
         authorRepository.delete(author);
@@ -69,7 +66,6 @@ public class AuthorServiceImpl implements AuthorService {
      * @param authorDto the author data transfer object containing the author details to be saved.
      * @return a {@link ResponseDto} indicating the result of the operation.
      */
-    @Transaction
     public ResponceDto save(AuthorDto authorDto) {
 
         Author author = new Author(random.nextLong(), authorDto.fullName(),
@@ -87,7 +83,6 @@ public class AuthorServiceImpl implements AuthorService {
      * @param authorDto the update data transfer object containing the old and new author details.
      * @return a {@link ResponseDto} indicating the result of the operation.
      */
-    @Transaction
     public ResponceDto update(UpdateDto<AuthorDto> authorDto) {
 
         AuthorDto newAuthor = authorDto.getNewValue();

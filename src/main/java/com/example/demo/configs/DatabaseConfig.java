@@ -1,21 +1,24 @@
 package com.example.demo.configs;
 
-import com.example.demo.util.ConnectionPool;
-import com.example.demo.util.impl.PostrgeConnectionPool;
 import liquibase.integration.spring.SpringLiquibase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.jdbc.datasource.DataSourceTransactionManager;
-import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.core.env.Environment;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.logging.Logger;
+import java.util.Objects;
+
+/**
+ * Configuration class for setting up the database connection.
+ * This class reads properties from 'database.properties' file and configures a DataSource bean.
+ *
+ * @author Klezovich Ivan
+ * @version 1.0
+ */
 
 @Configuration
 @EnableTransactionManagement
@@ -24,59 +27,26 @@ import java.util.logging.Logger;
 public class DatabaseConfig {
 
     /**
+     * The Environment object used to access properties.
+     */
+    private final Environment environment;
+
+    /**
      * Creates and returns a DataSource bean.
-     * The DataSource is configured using properties from the 'application.yaml' file.
+     * The DataSource is configured using properties from the 'database.properties' file.
      *
      * @return A DataSource instance, or null if an exception occurs during configuration.
      */
     @Bean
-    DataSource dataSource(ConnectionPool connectionPool) {
-        return new DataSource() {
-            @Override
-            public Connection getConnection() throws SQLException {
-                return connectionPool.getConnection();
-            }
+    public DataSource dataSource() {
+            DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
-            @Override
-            public Connection getConnection(String username, String password) throws SQLException {
-                return connectionPool.getConnection();
-            }
+            dataSource.setDriverClassName(Objects.requireNonNull(environment.getProperty("database.driver")));
+            dataSource.setUrl(environment.getProperty("database.url"));
+            dataSource.setUsername(environment.getProperty("database.username"));
+            dataSource.setPassword(environment.getProperty("database.password"));
 
-            @Override
-            public PrintWriter getLogWriter() {
-                return null;
-            }
-
-            @Override
-            public void setLogWriter(PrintWriter out) {
-
-            }
-
-            @Override
-            public void setLoginTimeout(int seconds) {
-
-            }
-
-            @Override
-            public int getLoginTimeout() {
-                return 0;
-            }
-
-            @Override
-            public <T> T unwrap(Class<T> iface) {
-                return null;
-            }
-
-            @Override
-            public boolean isWrapperFor(Class<?> iface) {
-                return false;
-            }
-
-            @Override
-            public Logger getParentLogger() {
-                return null;
-            }
-        };
+            return dataSource;
     }
 
     /**
@@ -89,19 +59,19 @@ public class DatabaseConfig {
     public SpringLiquibase liquibase(){
         SpringLiquibase liquibase = new SpringLiquibase();
         liquibase.setChangeLog("classpath:changelog-master.yaml");
-        liquibase.setDataSource(dataSource(new PostrgeConnectionPool()));
+        liquibase.setDataSource(dataSource());
         return liquibase;
     }
 
-    /**
-     * Creates and configures the PlatformTransactionManager for managing transactions.
-     * Uses DataSourceTransactionManager.
-     *
-     * @param dataSource the DataSource used for managing transactions
-     * @return the configured PlatformTransactionManager
-     */
-    @Bean
-    public PlatformTransactionManager transactionManager(DataSource dataSource) {
-        return new DataSourceTransactionManager(dataSource);
-    }
+//    /**
+//     * Creates and configures the PlatformTransactionManager for managing transactions.
+//     * Uses DataSourceTransactionManager.
+//     *
+//     * @param dataSource the DataSource used for managing transactions
+//     * @return the configured PlatformTransactionManager
+//     */
+//    @Bean
+//    public PlatformTransactionManager transactionManager(DataSource dataSource) {
+//        return new DataSourceTransactionManager(dataSource);
+//    }
 }

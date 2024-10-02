@@ -119,24 +119,11 @@ public class DemoApplication {
     public static void main(String[] args) {
         ApplicationContext context = new AnnotationConfigApplicationContext(SpringConfiguration.class);
 
+        System.out.println(context.getBeanDefinitionNames());
+
         //testsForAuthor(context);
 
         //testsForGenre(context);
-
-        ExecutorService executorService = Executors.newFixedThreadPool(5);
-
-        for (int i = 0; i < 5; i++) {
-            executorService.submit(() -> {
-                try {
-                    testsForBooks(context);
-                } catch (Exception e) {
-                    logger.log(Level.SEVERE, "Ошибка в потоке", e);
-                }
-            });
-        }
-
-        executorService.shutdown();
-        executorService.awaitTermination(1, TimeUnit.MINUTES);
 
         //testsForBooks(context);
 
