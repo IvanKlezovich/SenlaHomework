@@ -32,4 +32,4 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_order_items_book_editions_book_edition
                     referencedTableName: book_editions
-                    referencedColumnNames: id
+                    referencedColumnNames: book_editions_id

@@ -1,9 +1,8 @@
 //package com.example.demo.controllers.impl;
 //
 //import com.example.demo.controllers.OrdersController;
-//import com.example.demo.dtos.BooksDto;
 //import com.example.demo.dtos.OrdersDto;
-//import com.example.demo.dtos.UpdateDto;
+//import com.example.demo.dtos.SimpleDto;
 //import com.example.demo.service.OrdersService;
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.http.HttpStatus;
@@ -21,7 +20,7 @@
 //    private final OrdersService ordersService;
 //
 //    public ResponseEntity<List<OrdersDto>> getOrders() {
-//        List<OrdersDto> books = ordersService.getAllBooks();
+//        List<OrdersDto> books = ordersService.getAllOrders();
 //        return (books.isEmpty()) ? ResponseEntity.noContent().build() : ResponseEntity.ok(books);
 //    }
 //
@@ -30,7 +29,7 @@
 //        return ResponseEntity.status(HttpStatus.CREATED).build();
 //    }
 //
-//    public ResponseEntity<HttpStatus> updateOrders(UpdateDto<OrdersDto> ordersDtoUpdateDto) {
+//    public ResponseEntity<HttpStatus> updateOrders(SimpleDto<OrdersDto> ordersDtoUpdateDto) {
 //        ordersService.update(ordersDtoUpdateDto);
 //        return ResponseEntity.status(HttpStatus.OK).build();
 //    }

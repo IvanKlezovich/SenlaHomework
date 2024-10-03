@@ -228,4 +228,3 @@ public class GlobalExceptionHandler {
         log.error(REJECTED_FOR_REASON, "Response", response.getBody());
     }
 }
-

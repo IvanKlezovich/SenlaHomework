@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: genres
             columns:
               - column:
-                  name: id
+                  name: genre_id
                   type: BIGINT
                   autoIncrement: true
                   constraints:

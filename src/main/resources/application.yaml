@@ -5,34 +5,3 @@ spring:
     url: jdbc:postgresql://localhost:5432/books_shops_db
     username: postgres
     password: postgres
-  jpa:
-    hibernate:
-      ddl-auto: create
-management:
-  endpoint:
-    shutdown:
-      enabled: true
-  endpoints:
-    web:
-      exposure:
-        include:
-          - auditevents
-          - beans
-          - caches
-          - conditions
-          - configprops
-          - env
-          - health
-          - heapdump
-          - httptrace
-          - info
-          - logfile
-          - loggers
-          - liquibase
-          - metrics
-          - mappings
-          - scheduledtasks
-          - sessions
-          - shutdown
-          - startup
-          - threaddump

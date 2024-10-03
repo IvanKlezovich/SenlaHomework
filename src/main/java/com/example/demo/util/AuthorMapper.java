@@ -8,13 +8,14 @@ import org.mapstruct.MappingConstants;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface AuthorMapper {
+    //@Mapping(source = "id", target = "id")
     @Mapping(source = "fullName", target = "fullName")
     @Mapping(source = "biography", target = "biography")
     @Mapping(source = "birthDate", target = "birthDate")
     @Mapping(source = "country", target = "country")
     Author toAuthor(AuthorDto authorDto);
 
-
+    //@Mapping(source = "id", target = "id")
     @Mapping(source = "fullName", target = "fullName")
     @Mapping(source = "biography", target = "biography")
     @Mapping(source = "birthDate", target = "birthDate")

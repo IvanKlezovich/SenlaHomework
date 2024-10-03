@@ -5,7 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class UpdateDto<T> {
-    T oldValue;
-    T newValue;
+public class SimpleDto<T> {
+    T value;
 }

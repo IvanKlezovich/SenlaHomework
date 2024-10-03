@@ -4,5 +4,6 @@ import lombok.Builder;
 
 @Builder
 public record GenreDto(
+        Long id,
         String nameGenre) {
 }

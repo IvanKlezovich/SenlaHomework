@@ -1,7 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dtos.BookEditionDto;
-import com.example.demo.dtos.UpdateDto;
+import com.example.demo.dtos.SimpleDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ public interface BookEditionController {
     ResponseEntity<HttpStatus> createBookEdition(@RequestBody BookEditionDto BookEdition);
 
     @PostMapping("/BookEditionUpdate")
-    ResponseEntity<HttpStatus> updateBookEdition(@RequestBody UpdateDto<BookEditionDto> BookEdition);
+    ResponseEntity<HttpStatus> updateBookEdition(@RequestBody SimpleDto<BookEditionDto> BookEdition);
 
     @PostMapping("/BookEditionDelete")
     ResponseEntity<HttpStatus> deleteBookEdition(@RequestBody BookEditionDto BookEdition);

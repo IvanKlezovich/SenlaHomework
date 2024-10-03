@@ -5,6 +5,7 @@ import lombok.Builder;
 
 @Builder
 public record UsersDto(
+        Long id,
         String username,
         String password,
         Roles role) {

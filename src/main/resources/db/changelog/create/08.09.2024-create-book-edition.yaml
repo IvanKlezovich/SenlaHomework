@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: book_editions
             columns:
               - column:
-                  name: id
+                  name: book_editions_id
                   type: BIGINT
                   autoIncrement: true
                   constraints:
@@ -20,7 +20,7 @@ databaseChangeLog:
                     nullable: false
                     foreignKeyName: fk_book_editions_books
                     referencedTableName: books
-                    referencedColumnNames: id
+                    referencedColumnNames: book_id
               - column:
                   name: year
                   type: BIGINT

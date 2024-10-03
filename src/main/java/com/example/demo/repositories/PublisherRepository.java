@@ -1,14 +1,14 @@
 package com.example.demo.repositories;
 
 import com.example.demo.entities.Publisher;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-import java.util.Optional;
 
-public interface PublisherRepository {
-    void save(Publisher publisher);
-    void delete(Publisher publisher);
-    List<Publisher> findAll(); // TODO method must be Optional
-    Optional<Publisher> findByName(String name);
-    void update(Publisher newPublisher, Publisher oldPublisher);
+public interface PublisherRepository extends CrudRepository<Publisher, Long> {
+
+    @Modifying
+    @Query("update Publisher  p set p.name = :name, p.address = :adress where p.id = :id")
+    void updatePublisherById(Long id, String name,String address);
 }

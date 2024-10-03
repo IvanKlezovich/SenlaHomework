@@ -3,6 +3,7 @@
 //import com.example.demo.controllers.BookEditionController;
 //import com.example.demo.dtos.BookEditionDto;
 //import com.example.demo.dtos.BooksDto;
+//import com.example.demo.dtos.SimpleDto;
 //import com.example.demo.dtos.UpdateDto;
 //import com.example.demo.service.BookEditionService;
 //import lombok.AllArgsConstructor;
@@ -32,7 +33,7 @@
 //    }
 //
 //    @Override
-//    public ResponseEntity<HttpStatus> updateBookEdition(UpdateDto<BookEditionDto> bookEdition) {
+//    public ResponseEntity<HttpStatus> updateBookEdition(SimpleDto<BookEditionDto> bookEdition) {
 //        bookEditionService.update(bookEdition);
 //        return ResponseEntity.status(HttpStatus.OK).build();
 //    }

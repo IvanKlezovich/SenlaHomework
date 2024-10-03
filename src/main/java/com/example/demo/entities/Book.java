@@ -1,17 +1,15 @@
 //package com.example.demo.entities;
 //
-//import jakarta.persistence.Column;
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.EnumType;
-//import jakarta.persistence.Enumerated;
-//import jakarta.persistence.Id;
-//import jakarta.persistence.Table;
+//import jakarta.persistence.*;
+//import jakarta.validation.constraints.NotNull;
+//import jakarta.validation.constraints.Size;
 //import lombok.AllArgsConstructor;
 //import lombok.Getter;
 //import lombok.NoArgsConstructor;
 //import lombok.Setter;
 //import org.hibernate.proxy.HibernateProxy;
 //
+//import java.util.List;
 //import java.util.Objects;
 //
 //@Entity
@@ -19,28 +17,23 @@
 //@NoArgsConstructor
 //@Getter
 //@Setter
-//@Table(name = "orders")
-//public class Orders {
+//@Table(name = "books")
+//public class Book{
 //
 //    @Id
-//    @Column(name = "order_id")
+//    @Column(name = "book_id")
 //    private Long id;
 //
-//    @Column(name = "user_id")
-//    private User user;
+//    @Column(name = "title")
+//    private String title;
 //
-//    @Column(name = "order_items_id")
-//    private OrderItems orderItemId;
+//    @NotNull(message = "У книги должен быть по крайней мере один автор")
+//    @OneToMany
+//    private List<Author> author;
 //
-//    @Column(name = "total_price")
-//    private Long totalPrice;
-//
-//    @Column(name = "date")
-//    private Long date;
-//
-//    @Column(name = "status")
-//    @Enumerated(EnumType.STRING)
-//    private Status status;
+//    @Column(name = "genre")
+//    @OneToMany
+//    private Genre genre;
 //
 //    @Override
 //    public final boolean equals(Object o) {
@@ -49,8 +42,8 @@
 //        Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
 //        Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
 //        if (thisEffectiveClass != oEffectiveClass) return false;
-//        Orders orders = (Orders) o;
-//        return getId() != null && Objects.equals(getId(), orders.getId());
+//        Book book = (Book) o;
+//        return getId() != null && Objects.equals(getId(), book.getId());
 //    }
 //
 //    @Override

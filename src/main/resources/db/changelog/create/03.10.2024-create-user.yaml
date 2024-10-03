@@ -1,23 +1,30 @@
 databaseChangeLog:
   - changeSet:
-      id: add_table_book
-      author: Klezovich Ivan
+      id: add_table_user
+      author: Klezovich_Ivan
       changes:
         - createTable:
-            tableName: publishers
+            tableName: user
             columns:
               - column:
-                  name: publisher_id
+                  name: user_id
                   type: BIGINT
                   autoIncrement: true
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: name
+                  name: username
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
               - column:
-                  name: address
+                  name: password
                   type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: role
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false

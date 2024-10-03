@@ -7,7 +7,7 @@ databaseChangeLog:
           tableName: books
           columns:
             - column:
-                name: id
+                name: book_id
                 type: BIGINT
                 autoIncrement: true
                 constraints:
@@ -25,7 +25,7 @@ databaseChangeLog:
                   nullable: false
                   foreignKeyName: fk_books_author
                   referencedTableName: authors
-                  referencedColumnNames: id
+                  referencedColumnNames: author_id
             - column:
                 name: genre_id
                 type: BIGINT
@@ -33,4 +33,4 @@ databaseChangeLog:
                   nullable: false
                   foreignKeyName: fk_books_genre
                   referencedTableName: genres
-                  referencedColumnNames: id
+                  referencedColumnNames: genre_id

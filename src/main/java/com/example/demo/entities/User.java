@@ -1,9 +1,6 @@
 package com.example.demo.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,21 +14,22 @@ import java.util.Objects;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "bookstores")
-public class Bookstore {
+@Table(name = "user")
+public class User {
 
     @Id
-    @Column(name = "bookstore_id")
+    @Column(name = "user_id")
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "username", nullable = false)
+    private String username;
 
-    @Column(name = "delivery_day")
-    private Long deliveryDate;
+    @Column(name = "password", nullable = false)
+    private String password;
 
-    @Column(name = "capacity")
-    private int capacity;
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Roles role;
 
     @Override
     public final boolean equals(Object o) {
@@ -40,8 +38,8 @@ public class Bookstore {
         Class<?> oEffectiveClass = o instanceof HibernateProxy ? ((HibernateProxy) o).getHibernateLazyInitializer().getPersistentClass() : o.getClass();
         Class<?> thisEffectiveClass = this instanceof HibernateProxy ? ((HibernateProxy) this).getHibernateLazyInitializer().getPersistentClass() : this.getClass();
         if (thisEffectiveClass != oEffectiveClass) return false;
-        Bookstore bookstore = (Bookstore) o;
-        return getId() != null && Objects.equals(getId(), bookstore.getId());
+        User user = (User) o;
+        return getId() != null && Objects.equals(getId(), user.getId());
     }
 
     @Override

@@ -19,6 +19,8 @@ databaseChangeLog:
       - file: db/changelog/create/08.09.2024-create-orders.yaml
   - include:
       - file: db/changelog/create/08.09.2024-create-publisher.yaml
+  - include:
+      - file: db/changelog/create/03.10.2024-create-user.yaml
   - includeAll:
       - path: db/changelog/update
   - includeAll:

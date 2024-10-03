@@ -1,13 +1,13 @@
 databaseChangeLog:
   - changeSet:
       id: add_table_author
-      author: Klezovich Ivan
+      author: Klezovich_Ivan
       changes:
         - createTable:
             tableName: authors
             columns:
               - column:
-                  name: id
+                  name: author_id
                   type: BIGINT
                   autoIncrement: true
                   constraints:
@@ -27,3 +27,6 @@ databaseChangeLog:
               - column:
                   name: country
                   type: VARCHAR(255)
+              - column:
+                  name: status
+                  type: boolean

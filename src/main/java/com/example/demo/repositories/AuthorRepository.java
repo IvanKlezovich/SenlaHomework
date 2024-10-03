@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -12,6 +13,12 @@ import java.util.Optional;
  * This interface provides methods for saving, deleting, updating, and retrieving authors from the database.
  */
 public interface AuthorRepository extends CrudRepository<Author, Long> {
+
+    @Query("select a from Author a")
+    Optional<List<Author>> findAllAuthors();
+
+    @Query("select a from Author a where a.id = :id")
+    Optional<Author> findAuthorById(Long id);
 
     @Query("select a from Author a where a.fullName = :name")
     Optional<Author> findAuthorByFullName(String name);

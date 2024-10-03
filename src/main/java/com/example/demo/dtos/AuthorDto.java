@@ -4,6 +4,7 @@ import lombok.*;
 
 @Builder
 public record AuthorDto(
+        //Long id,
         String fullName,
         String biography,
         Long birthDate,

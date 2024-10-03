@@ -8,6 +8,4 @@ import org.springframework.data.repository.CrudRepository;
  * This interface provides methods for saving, deleting, updating, and retrieving genres from the database.
  */
 public interface GenreRepository extends CrudRepository<Genre, Long> {
-
-
 }

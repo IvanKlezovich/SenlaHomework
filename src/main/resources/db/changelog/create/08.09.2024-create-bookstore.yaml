@@ -7,7 +7,7 @@ databaseChangeLog:
             tableName: bookstores
             columns:
               - column:
-                  name: id
+                  name: bookstore_id
                   type: BIGINT
                   autoIncrement: true
                   constraints:

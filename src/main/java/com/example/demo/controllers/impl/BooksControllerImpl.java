@@ -2,7 +2,7 @@
 //
 //import com.example.demo.controllers.BooksController;
 //import com.example.demo.dtos.BooksDto;
-//import com.example.demo.dtos.UpdateDto;
+//import com.example.demo.dtos.SimpleDto;
 //import com.example.demo.service.BooksService;
 //import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.ObjectMapper;
@@ -59,7 +59,7 @@
 //     * @param book the update data transfer object containing the book details to be updated.
 //     * @return a ResponseEntity with an OK status.
 //     */
-//    public ResponseEntity<HttpStatus> updateBook(@RequestBody UpdateDto<BooksDto> book) {
+//    public ResponseEntity<HttpStatus> updateBook(@RequestBody SimpleDto<BooksDto> book) {
 //        booksService.update(book);
 //        return ResponseEntity.status(HttpStatus.OK).build();
 //    }
