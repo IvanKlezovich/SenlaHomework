@@ -1,13 +1,11 @@
 package com.example.demo.dtos;
 
-import lombok.*;
+import java.util.UUID;
 
-@Builder
-public record AuthorDto(
-        //Long id,
+public record AuthorDto (
+        UUID id,
         String fullName,
         String biography,
         Long birthDate,
-        String country
-) {
+        String country) {
 }

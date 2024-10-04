@@ -1,6 +1,6 @@
-package com.example.demo.exeptions;
+package com.example.demo.exceptions;
 
-import static com.example.demo.exeptions.enums.ExceptionType.NOT_ACCEPTABLE;
+import static com.example.demo.exceptions.enums.ExceptionType.NOT_ACCEPTABLE;
 
 public class NotAcceptableException extends BaseException {
 

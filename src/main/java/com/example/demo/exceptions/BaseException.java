@@ -1,6 +1,6 @@
-package com.example.demo.exeptions;
+package com.example.demo.exceptions;
 
-import com.example.demo.exeptions.enums.ExceptionType;
+import com.example.demo.exceptions.enums.ExceptionType;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;

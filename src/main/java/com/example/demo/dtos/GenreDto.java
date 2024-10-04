@@ -2,8 +2,10 @@ package com.example.demo.dtos;
 
 import lombok.Builder;
 
+import java.util.UUID;
+
 @Builder
 public record GenreDto(
-        Long id,
+        UUID id,
         String nameGenre) {
 }

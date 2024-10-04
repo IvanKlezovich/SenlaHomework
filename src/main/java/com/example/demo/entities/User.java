@@ -1,5 +1,6 @@
 package com.example.demo.entities;
 
+import com.example.demo.entities.enums.Roles;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,6 +9,7 @@ import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class User {
 
     @Id
     @Column(name = "user_id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "username", nullable = false)
     private String username;

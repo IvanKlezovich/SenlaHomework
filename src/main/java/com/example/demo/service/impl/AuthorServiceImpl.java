@@ -1,20 +1,18 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dtos.AuthorDto;
-import com.example.demo.dtos.ResponseDto;
-import com.example.demo.dtos.SimpleDto;
+import com.example.demo.dtos.*;
+import com.example.demo.dtos.create.CreateAuthorDto;
 import com.example.demo.entities.Author;
 import com.example.demo.repositories.AuthorRepository;
 import com.example.demo.service.AuthorService;
 import com.example.demo.util.AuthorMapper;
+import com.example.demo.util.create.CreateAuthorMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.Random;
 
 /**
  * Service implementation for managing {@link AuthorDto} entities.
@@ -29,6 +27,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     private final AuthorRepository authorRepository;
     private final AuthorMapper authorMapper;
+    private final CreateAuthorMapper createAuthorMapper;
 
     /**
      * Retrieves all authors.
@@ -45,20 +44,20 @@ public class AuthorServiceImpl implements AuthorService {
     }
 
     @Transactional
-    public ResponseDto<AuthorDto> getAuthor(Long id) {
+    public ResponseDto<AuthorDto> getAuthor(IdDto idDto) {
         return null;
     }
 
     /**
      * Deletes an author.
      *
-     * @param authorDto the author data transfer object containing the author details to be deleted.
+     * @param idDto the author data transfer object containing the author details to be deleted.
      * @return a {@link ResponseDto} indicating the result of the operation.
      */
     @Transactional
-    public ResponseDto<AuthorDto> delete(AuthorDto authorDto) {
+    public ResponseDto<AuthorDto> delete(IdDto idDto) {
 
-        authorRepository.delete(authorMapper.toAuthor(authorDto));
+        authorRepository.deleteById(idDto.id());
 
         return ResponseDto.<AuthorDto>builder()
                 .message("ОК")
@@ -68,16 +67,14 @@ public class AuthorServiceImpl implements AuthorService {
     /**
      * Saves a new author.
      *
-     * @param authorDto the author data transfer object containing the author details to be saved.
+     * @param createAuthorDto the author data transfer object containing the author details to be saved.
      * @return a {@link ResponseDto} indicating the result of the operation.
      */
-    public ResponseDto<AuthorDto> save(AuthorDto authorDto) {
+    public ResponseDto<AuthorDto> save(CreateAuthorDto createAuthorDto) {
 
-        System.out.println(authorDto.toString());
-        Author author = authorMapper.toAuthor(authorDto);
-        System.out.println(author.toString());
-
-        authorRepository.save(authorMapper.toAuthor(authorDto));
+        Author author = createAuthorMapper.createAuthor(createAuthorDto.fullName(), createAuthorDto.biography(),
+                createAuthorDto.birthDate(), createAuthorDto.country());
+        authorRepository.save(author);
 
         return ResponseDto.<AuthorDto>builder()
                 .message("ОК")

@@ -1,9 +1,8 @@
 package com.example.demo.controllers.impl;
 
 import com.example.demo.controllers.AuthorController;
-import com.example.demo.dtos.AuthorDto;
-import com.example.demo.dtos.ResponseDto;
-import com.example.demo.dtos.SimpleDto;
+import com.example.demo.dtos.*;
+import com.example.demo.dtos.create.CreateAuthorDto;
 import com.example.demo.service.AuthorService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -39,11 +38,11 @@ public class AuthorControllerImpl implements AuthorController {
     /**
      * Creates a new author.
      *
-     * @param authorDto the author data transfer object containing the author details.
+     * @param createAuthorDto the author data transfer object containing the author details.
      * @return a ResponseEntity with a CREATED status.
      */
-    public ResponseEntity<ResponseDto<AuthorDto>> createAuthor(AuthorDto authorDto) {
-        authorService.save(authorDto);
+    public ResponseEntity<ResponseDto<AuthorDto>> createAuthor(CreateAuthorDto createAuthorDto) {
+        authorService.save(createAuthorDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -61,11 +60,15 @@ public class AuthorControllerImpl implements AuthorController {
     /**
      * Deletes an author.
      *
-     * @param author the author data transfer object containing the author details to be deleted.
+     * @param idDto the author data transfer object containing the author details to be deleted.
      * @return a ResponseEntity with a NO_CONTENT status.
      */
-    public ResponseEntity<ResponseDto<AuthorDto>> deleteAuthor(AuthorDto author) {
-        authorService.delete(author);
+    public ResponseEntity<ResponseDto<AuthorDto>> deleteAuthor(IdDto idDto) {
+        authorService.delete(idDto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    }
+
+    public ResponseEntity<HttpStatus> deathAuthor(Long id){
+        return null;
     }
 }

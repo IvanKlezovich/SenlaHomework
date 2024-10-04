@@ -1,4 +1,4 @@
-package com.example.demo.exeptions.enums;
+package com.example.demo.exceptions.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

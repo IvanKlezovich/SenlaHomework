@@ -1,7 +1,7 @@
-package com.example.demo.exeptions;
+package com.example.demo.exceptions;
 
 import com.example.demo.dtos.ErrorResponseDTO;
-import com.example.demo.exeptions.enums.ExceptionType;
+import com.example.demo.exceptions.enums.ExceptionType;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
@@ -15,8 +15,8 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 
 import java.time.Instant;
 
-import static com.example.demo.exeptions.enums.BadRequestExceptionMessage.*;
-import static com.example.demo.exeptions.enums.ExceptionType.*;
+import static com.example.demo.exceptions.enums.BadRequestExceptionMessage.*;
+import static com.example.demo.exceptions.enums.ExceptionType.*;
 
 /**
  * GlobalExceptionHandler is a centralized exception handler for handling various types of

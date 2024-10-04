@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.hibernate.proxy.HibernateProxy;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Entity
 @AllArgsConstructor
@@ -22,7 +23,7 @@ public class Author {
 
     @Id
     @Column(name = "author_id")
-    private Long id;
+    private UUID id;
 
     @Column(name = "full_name")
     private String fullName;

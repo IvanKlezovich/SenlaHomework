@@ -7,18 +7,19 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * Repository interface for managing {@link Author} entities.
  * This interface provides methods for saving, deleting, updating, and retrieving authors from the database.
  */
-public interface AuthorRepository extends CrudRepository<Author, Long> {
+public interface AuthorRepository extends CrudRepository<Author, UUID> {
 
     @Query("select a from Author a")
     Optional<List<Author>> findAllAuthors();
 
     @Query("select a from Author a where a.id = :id")
-    Optional<Author> findAuthorById(Long id);
+    Optional<Author> findAuthorById(UUID id);
 
     @Query("select a from Author a where a.fullName = :name")
     Optional<Author> findAuthorByFullName(String name);
@@ -26,9 +27,9 @@ public interface AuthorRepository extends CrudRepository<Author, Long> {
     @Modifying
     @Query("update Author a set a.fullName = :name, a.biography = :biography, " +
             "a.birthDate = :birthdate, a.country =  :country where a.id = :id")
-    void updateAuthorById(Long id, String name, Long birthdate, String country);
+    void updateAuthorById(UUID id, String name, Long birthdate, String country);
 
     @Modifying
     @Query("update Author a set a.isAlive = false where a.id = :id")
-    void deleteAuthorById(Long author);
+    void deleteAuthorById(UUID id);
 }

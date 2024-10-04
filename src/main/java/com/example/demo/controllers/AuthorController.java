@@ -1,8 +1,7 @@
 package com.example.demo.controllers;
 
-import com.example.demo.dtos.AuthorDto;
-import com.example.demo.dtos.ResponseDto;
-import com.example.demo.dtos.SimpleDto;
+import com.example.demo.dtos.*;
+import com.example.demo.dtos.create.CreateAuthorDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,7 @@ public interface AuthorController {
     )
     @PostMapping("/author")
     ResponseEntity<ResponseDto<AuthorDto>> createAuthor(
-            @RequestBody AuthorDto authorDto);
+            @RequestBody CreateAuthorDto createAuthorDto);
 
     @Operation(
             summary = "Изменение данных об авторе",
@@ -41,5 +40,5 @@ public interface AuthorController {
     )
     @PostMapping("/authorDelete")
     ResponseEntity<ResponseDto<AuthorDto>> deleteAuthor(
-            @RequestBody AuthorDto authorDto);
+            @RequestBody IdDto idDto);
 }

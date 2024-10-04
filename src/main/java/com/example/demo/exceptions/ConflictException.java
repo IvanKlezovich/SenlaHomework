@@ -1,6 +1,6 @@
-package com.example.demo.exeptions;
+package com.example.demo.exceptions;
 
-import static com.example.demo.exeptions.enums.ExceptionType.CONFLICT;
+import static com.example.demo.exceptions.enums.ExceptionType.CONFLICT;
 
 public class ConflictException extends BaseException {
 

@@ -1,6 +1,6 @@
-package com.example.demo.exeptions;
+package com.example.demo.exceptions;
 
-import static com.example.demo.exeptions.enums.ExceptionType.NOT_FOUND;
+import static com.example.demo.exceptions.enums.ExceptionType.NOT_FOUND;
 
 public class NotFoundException extends BaseException {
 

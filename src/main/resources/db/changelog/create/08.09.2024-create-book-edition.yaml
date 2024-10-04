@@ -8,14 +8,13 @@ databaseChangeLog:
             columns:
               - column:
                   name: book_editions_id
-                  type: BIGINT
-                  autoIncrement: true
+                  type: UUID
                   constraints:
                     primaryKey: true
                     nullable: false
               - column:
                   name: book_id
-                  type: BIGINT
+                  type: UUID
                   constraints:
                     nullable: false
                     foreignKeyName: fk_book_editions_books

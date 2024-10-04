@@ -1,6 +1,6 @@
-package com.example.demo.exeptions;
+package com.example.demo.exceptions;
 
-import static com.example.demo.exeptions.enums.ExceptionType.SERVICE_UNAVAILABLE;
+import static com.example.demo.exceptions.enums.ExceptionType.SERVICE_UNAVAILABLE;
 
 public class ServiceUnavailableException extends BaseException {
 

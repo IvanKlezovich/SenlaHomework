@@ -8,8 +8,7 @@ databaseChangeLog:
             columns:
               - column:
                   name: genre_id
-                  type: BIGINT
-                  autoIncrement: true
+                  type: UUID
                   constraints:
                     primaryKey: true
                     nullable: false

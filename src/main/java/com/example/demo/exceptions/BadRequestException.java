@@ -1,6 +1,6 @@
-package com.example.demo.exeptions;
+package com.example.demo.exceptions;
 
-import static com.example.demo.exeptions.enums.ExceptionType.BAD_REQUEST;
+import static com.example.demo.exceptions.enums.ExceptionType.BAD_REQUEST;
 
 public class BadRequestException extends BaseException {
 

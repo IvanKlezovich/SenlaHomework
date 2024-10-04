@@ -1,12 +1,14 @@
 package com.example.demo.dtos;
 
-import lombok.*;
+import lombok.Builder;
 
-@Getter
-@AllArgsConstructor
-@NoArgsConstructor
-public class BooksDto{
-    String title;
-    String authorName;
-    String genreName;
+import java.util.UUID;
+
+@Builder
+public record BooksDto(
+        UUID id,
+        String title,
+        String authorName,
+        String genreName
+) {
 }
