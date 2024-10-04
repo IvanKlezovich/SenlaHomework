@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum BadRequestExceptionMessage {
   INVALID_DOCUMENT_NAME("Неверное название документа"),
-  INVALID_CUSTOMER_ID("Неверный идентификатор клиента"),
+  INVALID_ID("Неверный идентификатор"),
   INVALID_INPUT_DATA("Неверные входные данные. Укажите корректные значения входных данных"),
   INVALID_REQUEST_BODY("Не удалось прочитать тело запроса. Укажите корректные JSON данные"),
   INVALID_ARGUMENT_TYPE("Неверный тип аргумента. Укажите правильный тип параметра"),

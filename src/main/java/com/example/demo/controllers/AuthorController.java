@@ -2,8 +2,8 @@ package com.example.demo.controllers;
 
 import com.example.demo.dtos.*;
 import com.example.demo.dtos.create.CreateAuthorDto;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,14 +16,14 @@ public interface AuthorController {
             description = "Получение всех авторов происходит по средствам SQL запроса в базу данных"
     )
     @GetMapping(value = "/allAuthor", produces = "application/json")
-    ResponseEntity<ResponseDto<AuthorDto>> getAllAuthor() throws JsonProcessingException;
+    ResponseEntity<ResponseDto<AuthorDto>> getAllAuthor();
 
     @Operation(
             summary = "Добавление автора",
             description = "Добавление автора происходит по средствам SQL запроса в базу данных"
     )
     @PostMapping("/author")
-    ResponseEntity<ResponseDto<AuthorDto>> createAuthor(
+    ResponseEntity<HttpStatus> createAuthor(
             @RequestBody CreateAuthorDto createAuthorDto);
 
     @Operation(
@@ -31,7 +31,7 @@ public interface AuthorController {
             description = "Изменение данных об авторе происходит по средствам SQL запроса в базу данных"
     )
     @PostMapping("/authorUpdate")
-    ResponseEntity<ResponseDto<AuthorDto>> updateAuthor(
+    ResponseEntity<HttpStatus> updateAuthor(
             @RequestBody SimpleDto<AuthorDto> authorDtoUpdateDto);
 
     @Operation(
@@ -39,6 +39,6 @@ public interface AuthorController {
             description = "Удаление данных об авторе происходит по средствам SQL запроса в базу данных"
     )
     @PostMapping("/authorDelete")
-    ResponseEntity<ResponseDto<AuthorDto>> deleteAuthor(
+    ResponseEntity<HttpStatus> deleteAuthor(
             @RequestBody IdDto idDto);
 }

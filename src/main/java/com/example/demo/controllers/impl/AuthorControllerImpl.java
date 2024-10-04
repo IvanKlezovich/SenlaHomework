@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
  * This controller provides endpoints for retrieving, creating, updating, and deleting authors.
  *
  * @author Klezovich Ivan
- * @since 2023-10-04
+ * @since 2024-10-04
  */
 @RestController
 @RequestMapping("/author")
@@ -41,7 +41,7 @@ public class AuthorControllerImpl implements AuthorController {
      * @param createAuthorDto the author data transfer object containing the author details.
      * @return a ResponseEntity with a CREATED status.
      */
-    public ResponseEntity<ResponseDto<AuthorDto>> createAuthor(CreateAuthorDto createAuthorDto) {
+    public ResponseEntity<HttpStatus> createAuthor(CreateAuthorDto createAuthorDto) {
         authorService.save(createAuthorDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -52,7 +52,7 @@ public class AuthorControllerImpl implements AuthorController {
      * @param author the update data transfer object containing the author details to be updated.
      * @return a ResponseEntity with an OK status.
      */
-    public ResponseEntity<ResponseDto<AuthorDto>> updateAuthor(SimpleDto<AuthorDto> author) {
+    public ResponseEntity<HttpStatus> updateAuthor(SimpleDto<AuthorDto> author) {
         authorService.update(author);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -63,12 +63,12 @@ public class AuthorControllerImpl implements AuthorController {
      * @param idDto the author data transfer object containing the author details to be deleted.
      * @return a ResponseEntity with a NO_CONTENT status.
      */
-    public ResponseEntity<ResponseDto<AuthorDto>> deleteAuthor(IdDto idDto) {
+    public ResponseEntity<HttpStatus> deleteAuthor(IdDto idDto) {
         authorService.delete(idDto);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
-    public ResponseEntity<HttpStatus> deathAuthor(Long id){
+    public ResponseEntity<HttpStatus> deathAuthor(IdDto idDto){
         return null;
     }
 }

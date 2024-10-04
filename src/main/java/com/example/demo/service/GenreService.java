@@ -1,14 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.dtos.GenreDto;
+import com.example.demo.dtos.IdDto;
 import com.example.demo.dtos.ResponseDto;
 import com.example.demo.dtos.SimpleDto;
-
-import java.util.List;
+import com.example.demo.dtos.create.CreateGenreDto;
 
 public interface GenreService {
     ResponseDto<GenreDto> getAllGenre();
-//    ResponseDto delete(GenreDto genreDto);
-//    ResponseDto save(GenreDto genreDto);
-//    ResponseDto update(SimpleDto<GenreDto> genreDto);
+    ResponseDto<GenreDto> delete(IdDto idDto);
+    ResponseDto<GenreDto> save(CreateGenreDto createGenreDto);
+    ResponseDto<GenreDto> update(SimpleDto<CreateGenreDto> genreDto);
 }

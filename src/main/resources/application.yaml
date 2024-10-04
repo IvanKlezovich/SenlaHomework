@@ -5,3 +5,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/books_shops_db
     username: postgres
     password: postgres
+logging:
+  level:
+    root: "Info"
+    org.springframework.web: "debug"
+    org.hibernate: "error"

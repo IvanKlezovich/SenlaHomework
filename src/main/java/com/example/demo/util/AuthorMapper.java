@@ -1,6 +1,7 @@
 package com.example.demo.util;
 
 import com.example.demo.dtos.AuthorDto;
+import com.example.demo.dtos.create.CreateAuthorDto;
 import com.example.demo.entities.Author;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,4 +21,10 @@ public interface AuthorMapper {
     @Mapping(source = "birthDate", target = "birthDate")
     @Mapping(source = "country", target = "country")
     AuthorDto toAuthorDto(Author author);
+
+    @Mapping(source = "fullName", target = "fullName")
+    @Mapping(source = "biography", target = "biography")
+    @Mapping(source = "birthDate", target = "birthDate")
+    @Mapping(source = "country", target = "country")
+    Author toAuthor(CreateAuthorDto createAuthorDto);
 }

@@ -25,7 +25,7 @@ public class Genre {
     @Column(name = "genre_id")
     private UUID id;
 
-    @Column(name = "genre_name")
+    @Column(name = "name_genre")
     private String nameGenre;
 
     @Override

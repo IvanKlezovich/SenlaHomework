@@ -1,6 +1,6 @@
 package com.example.demo.dtos.create;
 
-import lombok.*;
+import lombok.Builder;
 
 @Builder
 public record CreateAuthorDto(

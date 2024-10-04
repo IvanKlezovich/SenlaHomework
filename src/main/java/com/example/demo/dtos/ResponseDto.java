@@ -7,5 +7,6 @@ import java.util.List;
 @Builder
 public record ResponseDto<T>(
     String message,
-    List<T> data) {
+    List<T> data,
+    T entity) {
 }

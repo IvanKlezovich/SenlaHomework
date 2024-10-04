@@ -1,8 +1,13 @@
 package com.example.demo.service.impl;
 
-import com.example.demo.dtos.*;
+import com.example.demo.dtos.AuthorDto;
+import com.example.demo.dtos.IdDto;
+import com.example.demo.dtos.ResponseDto;
+import com.example.demo.dtos.SimpleDto;
 import com.example.demo.dtos.create.CreateAuthorDto;
 import com.example.demo.entities.Author;
+import com.example.demo.exceptions.NotFoundException;
+import com.example.demo.exceptions.enums.BadRequestExceptionMessage;
 import com.example.demo.repositories.AuthorRepository;
 import com.example.demo.service.AuthorService;
 import com.example.demo.util.AuthorMapper;
@@ -36,7 +41,9 @@ public class AuthorServiceImpl implements AuthorService {
      */
     public ResponseDto<AuthorDto> getAllAuthor() {
         List<AuthorDto> authorDtos = new ArrayList<>();
+
         authorRepository.findAll().forEach(item -> authorDtos.add(authorMapper.toAuthorDto(item)));
+
         return ResponseDto.<AuthorDto>builder()
                 .message("ok")
                 .data(authorDtos)
@@ -45,7 +52,12 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Transactional
     public ResponseDto<AuthorDto> getAuthor(IdDto idDto) {
-        return null;
+        AuthorDto authorDto = authorMapper.toAuthorDto(authorRepository.findAuthorById(idDto.id())
+                .orElseThrow(NotFoundException(BadRequestExceptionMessage.INVALID_ID.getMessage())));
+        return ResponseDto.<AuthorDto>builder()
+                .message("ok")
+                .entity(authorDto)
+                .build();
     }
 
     /**
@@ -60,7 +72,7 @@ public class AuthorServiceImpl implements AuthorService {
         authorRepository.deleteById(idDto.id());
 
         return ResponseDto.<AuthorDto>builder()
-                .message("ОК")
+                .message("ok")
                 .build();
     }
 
@@ -90,8 +102,7 @@ public class AuthorServiceImpl implements AuthorService {
     public ResponseDto<AuthorDto> update(SimpleDto<AuthorDto> authorDto) {
 
         Author author = authorMapper.toAuthor(authorDto.getValue());
-
-        authorRepository.updateAuthorById(author.getId(), author.getFullName(),
+        authorRepository.updateAuthorById(author.getId(), author.getFullName(), author.getBiography(),
                 author.getBirthDate(), author.getCountry());
 
         return ResponseDto.<AuthorDto>builder()
